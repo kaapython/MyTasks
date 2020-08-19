@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  web:
+    build: ./
+    restart: always
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/usr/src/mytasks/
+    ports:
+      - 8001:8000
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    volumes:
+      - tasks_pg_db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=mytasks
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+volumes:
+  tasks_pg_db_data:

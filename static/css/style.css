@@ -1,0 +1,145 @@
+body {
+    background-color: #FFFFFF;
+}
+
+main {
+    padding: 0.5%;
+
+}
+
+button {
+    border-radius: 5px;
+}
+
+textarea {
+    border-radius: 5px;
+
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+
+.form_style {
+    display: flex;
+    justify-content: space-around;
+}
+
+.form_style div {
+    width: 300px;
+}
+
+.cols th {
+    text-align: center;
+}
+
+
+select {
+    width: 300px;
+    border-radius: 5px;
+    height: 30px;
+}
+
+input {
+    width: 300px;
+    border-radius: 5px;
+    height: 30px;
+}
+
+#pointer_li li {
+    cursor: pointer;
+}
+
+.row_border {
+    border: 1px solid #ccc;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+#form {
+    border: 1px solid #A4A4A4;
+    border-radius: 8px;
+    height: 70px;
+    padding-top: 20px;
+    background: #F2F2F2;
+    font-size: 16pt;
+    text-align: center;
+    color: #6E6E6E;
+}
+
+#form p:nth-child(3n+1) {
+    background: red;
+}
+
+#form_style p select {
+    width: 100%;
+    border-radius: 8px;
+    height: 40px;
+}
+
+#form_style p input {
+    width: 100%;
+    border-radius: 8px;
+    height: 40px;
+}
+
+#ui-datepicker-div {
+    background-color: #eee;
+    font-size: 18px;
+
+}
+.ui-datepicker-next {
+    float: right;
+}
+
+div .ui-datepicker-title {
+    text-align: center;
+    background-color: #b5dcb2;
+    border-radius: 5px;
+}
+
+table .ui-datepicker-calendar {
+    border-spacing: 10px;
+    border-collapse: inherit;
+}
+
+.ui-icon {
+    cursor: pointer;
+
+}
+
+.ui-datepicker-calendar td {
+    border: 1px solid #ddd;
+    text-align: right;
+    cursor: pointer;
+}
+
+.ui-datepicker-calendar td:hover {
+    background: #eb621a;
+}
+
+.container_time {
+    overflow-y: scroll;
+    height: 140px;
+    background-color: #ddd;
+    width: 70px;
+    margin-top: 27px;
+}
+.items {
+    cursor: pointer;
+    border: solid 1px #ddd;
+    text-align: center;
+    background: #ccc;
+    height: 28px;
+}
+
+
+.items:hover {
+    background: #eb621a;
+}
