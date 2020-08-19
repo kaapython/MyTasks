@@ -1,0 +1,22 @@
+{% extends 'tasks/base.html' %}
+{% load mptt_tags %}
+
+{% block content %}
+<div>
+  <div>
+    <form action="{% url 'close_task' %}" method='post'>
+      {% csrf_token %}
+      <tbody>
+      <tr>
+        {% for f in form %}
+        <td class="col-xs-1 div_line">{{ f }}</td>
+        {% endfor %}
+        <td>
+          <button class="btn btn-primary" name="submit" style="border-radius: 7px; ">Записать</button>
+        </td>
+      </tr>
+      </tbody>
+    </form>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,25 @@
+{% extends 'tasks/base.html' %}
+{% load mptt_tags %}
+
+{% block content %}
+<div class="container">
+  <div id="form">Редактор задачи</div>
+  <br>
+  <hr>
+  <form action="" method='post'>
+    {% csrf_token %}
+    <div id="form_style">
+      {{ form.as_p }}
+      <button class="btn btn-outline-success my-2 my-sm-0" name="submit" style="width: 100%;">Сохранить задачу</button>
+    </div>
+  </form>
+</div>
+{% endblock content %}
+{% block scripts %}
+<script>
+    $(function () {
+        $('input[name="note"]').after($('<textarea name="note" id="id_note" cols=121 rows=3 placeholder="Заметка">'));
+        $('input[name="note"]').remove();
+    });
+</script>
+{% endblock scripts %}

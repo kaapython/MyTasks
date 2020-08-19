@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
-from services.config import KEY, DEBUG, HOSTS
+from backend.config import KEY, DEBUG, HOSTS
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,10 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'bootstrap4',
     'mptt',
-    'backend.tasks',
-
+    'frontend.tasks'
 ]
 
 MIDDLEWARE = [
@@ -125,9 +124,9 @@ USE_TZ = True
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'frontend/static'),
 ]
 
-STATIC_URL = '/static/'
+STATIC_URL = '/frontend/static/'
 
 

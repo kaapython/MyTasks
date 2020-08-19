@@ -7,17 +7,11 @@ from mptt.forms import MoveNodeForm
 
 from .models import *
 from .forms import *
+from backend.services import _get_hours, _get_minutes
 
 
 def index(request, pk=1):
     """" Стартовая страница приложения Tasks """
-    hours = []
-    for i in range(24):
-        hours.append(i)
-
-    minutes = []
-    for k in range(0, 60, 5):
-        minutes.append(k)
     tasks = Tasks.objects.all().exclude(close_task=True).order_by('id')
     task = Tasks.objects.get(id=pk)
     cat = Tasks.objects.filter(category_id=pk)
@@ -29,16 +23,9 @@ def index(request, pk=1):
             form.save()
             print(form.save())
             return HttpResponseRedirect(reverse('index'))
-    context = {'form': form, 'tasks': tasks, 'cat': cat, 'task': task, 'hours': hours, 'minutes': minutes}
+    context = {'form': form, 'tasks': tasks, 'cat': cat, 'task': task,
+               'hours': _get_hours(), 'minutes': _get_minutes()}
     return render(request, 'tasks/index.html', context)
-
-
-def alarm_finish_date_time(self):
-    """ Функция оповещения срока выполнения задачи """
-    now_date_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    if now_date_time == self.finish_date_time:
-        message = 'Наступила дата задачи {}'.format(self.task)
-        return message
 
 
 def edit_task(request, pk):
@@ -53,4 +40,3 @@ def edit_task(request, pk):
             return HttpResponseRedirect(reverse('index', args=[task.id]))
     context = {'task': task, 'form': form}
     return render(request, 'tasks/edit_task.html', context)
-
