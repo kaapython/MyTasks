@@ -23,14 +23,21 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        <a class="nav-link dropdown-toggle btn-lg" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">Menu</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/">Home</a>
-          <a class="dropdown-item" href="/edit_task">Edit task</a>
+          <a class="dropdown-item btn-lg" href="/">Home</a>
+          <a class="dropdown-item btn-lg" href="#" onclick="showAddCategory()">Add category</a>
+          <a class="dropdown-item btn-lg" href="#" onclick="showAddTask()">Add task</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item btn-lg" href="/admin">Admin</a>
         </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="dropdown-item btn-lg" href="#" onclick="showAddCategory()">Add category</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="dropdown-item btn-lg" href="#" onclick="showAddTask()">Add task</a>
       </li>
     </ul>
   </div>

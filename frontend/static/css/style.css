@@ -63,14 +63,15 @@ input {
 }
 
 #form {
-    border: 1px solid #A4A4A4;
-    border-radius: 5px;
-    height: 70px;
-    padding-top: 20px;
-    background: #F2F2F2;
-    font-size: 16pt;
+    height: 47px;
+    background: #212529;
+    font-size: 15px;
     text-align: center;
-    color: #6E6E6E;
+    color: #fff;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #form p:nth-child(3n+1) {
@@ -142,4 +143,15 @@ table .ui-datepicker-calendar {
 
 .items:hover {
     background: #eb621a;
+}
+
+#message {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #4fcd26;
+    height: 50px;
+    width: 400px;
+    border-radius: 4px;
+    padding: 18px 0px 0px 0px;
 }

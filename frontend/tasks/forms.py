@@ -1,10 +1,11 @@
 from django import forms
 from .models import *
 
+
 class AddTasksForm(forms.ModelForm):
-    '''Форма для создания новой задачи'''
+    """ Форма для создания новой задачи """
+
     class Meta:
-        #TODO: Создать нормальную форму с полями и убрать костыль jquery
         model = Tasks
         fields = [
             'task',
@@ -21,8 +22,10 @@ class AddTasksForm(forms.ModelForm):
             'note': ''
         }
 
+
 class EditTaskForm(forms.ModelForm):
-    """ Форма редактирования/закрытие задачи """
+    """ Форма редактирования/закрытия задачи """
+
     class Meta:
         model = Tasks
         fields = [

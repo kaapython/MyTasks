@@ -2,178 +2,121 @@
 {% load mptt_tags %}
 
 {% block content %}
-<h3 align="center">IT`S MY ЗАДАЧИ</h3>
+<h3 align="center"><b>IT`S MY ЗАДАЧИ</b></h3>
 <div>
-    <form action="{% url 'index' %}" method='post'>
-      {% csrf_token %}
-        <div class="row" align="left">
-          <div class="col-md-12">
-            <table class="table">
-              <thead class="thead-dark">
-              <tr class="cols">
-                <th class="col-sm-2 ">Задача</th>
-                <th class="col-sm-2">Родитель</th>
-                <th class="col-sm-2">Категория</th>
-                <th class="col-sm-2">Дата оповещения</th>
-                <th class="col-sm-2">Заметка</th>
-                <th class="col-sm-2"><p>Создать задачу:</p></th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                {% for f in form %}
-                <td class="col-sm-2">{{ f }}</td>
-                {% endfor %}
-                <td>
-                  <button class="btn btn-primary" name="submit">Добавить задачу</button>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
+  <div id="add_category" style="display: flex; flex-direction: column; align-items: center; display: none">
+    <div>
+      <div id="form"><b>Создать категорию</b></div>
+      <br>
+      <hr>
+      <div style="display: flex; justify-content: space-between">
+        <div style="width: 70%; display: flex; align-items: center; justify-content: center;">
+          <input type="text" name="category" style="width: 100%">
         </div>
-    </form>
-<br>
-<!--<div class="xdsoft_time " data-hour="{{ hours }}" data-minute="{{ minutes }}"></div>-->
-<div class="row">
-  <div class="col-md-5" id="tasks_block">
-    <ul id="pointer_li">
-      {% recursetree tasks %}
-      <li>
-        <!--                    <a href="/task/{{ node.pk }}"></a>-->
-        <!--                    {{ node.pk }}. {{ node.task }}.-->
-        <a href="{{ node.pk }}">{{ node.task }}
-          <!--                    <a href="#">{{ node.task }}-->
-          <!--                    {% if node.finish_date_time == None %}-->
-          <!--                    {% else %}-->
-          <!--                        дата оповещения {{ node.finish_date_time }}-->
-          <!--                    {% endif %}-->
-
-          {% if not node.is_leaf_node %}
-          <ul class="children">
-            {{ children }}
-          </ul>
-          {% endif %}</a>
-      </li>
-      {% endrecursetree %}
-    </ul>
+        <div style="width: 30%">
+          <button class="btn btn-outline-success btn-lg" name="submit" style="width: 100%" onclick="addCategory()">
+            Добавить задачу
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-md-7 task_show" id="detail_task">
-    <div class="container-fluid">
+  <div id="message" style="display: none" align="center"></div>
+  <form id="add_task" action="{% url 'index' %}" method='post' style="display: none">
+    {% csrf_token %}
       <div class="row" align="left">
         <div class="col-md-12">
           <table class="table">
             <thead class="thead-dark">
-            <tr>
-              <th class="col-sm-2">Задача</th>
-              <th class="col-sm-1">Родитель</th>
-              <th class="col-sm-1">Дата создания</th>
-              <th class="col-sm-1">Категория</th>
-              <th class="col-sm-1">Дата оповещения</th>
-              <th class="col-sm-1">Редактировать</th>
+            <tr class="cols">
+              <th class="col-sm-2 ">Задача</th>
+              <th class="col-sm-2">Родитель</th>
+              <th class="col-sm-2">Категория</th>
+              <th class="col-sm-2">Дата оповещения</th>
+              <th class="col-sm-2">Заметка</th>
+              <th class="col-sm-2"><p>Создать задачу:</p></th>
             </tr>
             </thead>
             <tbody>
-            <tr class="table_task_show">
-              <td class="col-xs-1 div_line">{{ task }}</td>
-              {% if task.parent == None %}
-              <td class="col-sm-1 div_line">нет</td>
-              {% else %}
-              <td class="col-sm-1 div_line">{{ task.parent }}</td>
-              {% endif %}
-              <td class="col-sm-1 div_line">{{ task.create_date_time }}</td>
-              <td class="col-sm-1 div_line">{{ task.category }}</td>
-              {% if task.finish_date_time == None %}
-              <td class="col-sm-1 div_line">нет</td>
-              {% else %}
-              <td class="col-sm-1 div_line">{{ task.finish_date_time }}</td>
-              {% endif %}
-              <td><a href="{% url 'edit_task' task.pk %}">Редактировать</a></td>
+            <tr>
+              {% for f in form %}
+              <td class="col-sm-2">{{ f }}</td>
+              {% endfor %}
+              <td>
+                <button class="btn btn-outline-success btn-lg" name="submit">Добавить задачу</button>
+              </td>
             </tr>
             </tbody>
           </table>
         </div>
       </div>
+  </form>
+  <br>
+  <!--<div class="xdsoft_time " data-hour="{{ hours }}" data-minute="{{ minutes }}"></div>-->
+  <div class="row">
+    <div class="col-md-5" id="tasks_block">
+      <ul id="pointer_li">
+        {% recursetree tasks %}
+        <li>
+          <!--                    <a href="/task/{{ node.pk }}"></a>-->
+          <!--                    {{ node.pk }}. {{ node.task }}.-->
+          <a href="{{ node.pk }}">{{ node.task }}
+            <!--                    <a href="#">{{ node.task }}-->
+            <!--                    {% if node.finish_date_time == None %}-->
+            <!--                    {% else %}-->
+            <!--                        дата оповещения {{ node.finish_date_time }}-->
+            <!--                    {% endif %}-->
+
+            {% if not node.is_leaf_node %}
+            <ul class="children">
+              {{ children }}
+            </ul>
+            {% endif %}</a>
+        </li>
+        {% endrecursetree %}
+      </ul>
+    </div>
+    <div class="col-md-7 task_show" id="detail_task">
+      <div class="container-fluid">
+        <div class="row" align="left">
+          <div class="col-md-12">
+            <table class="table">
+              <thead class="thead-dark">
+              <tr>
+                <th class="col-sm-2">Задача</th>
+                <th class="col-sm-1">Родитель</th>
+                <th class="col-sm-1">Дата создания</th>
+                <th class="col-sm-1">Категория</th>
+                <th class="col-sm-1">Дата оповещения</th>
+                <th class="col-sm-1">Редактировать</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="table_task_show">
+                <td class="col-xs-1 div_line">{{ task }}</td>
+                {% if task.parent == None %}
+                <td class="col-sm-1 div_line">нет</td>
+                {% else %}
+                <td class="col-sm-1 div_line">{{ task.parent }}</td>
+                {% endif %}
+                <td class="col-sm-1 div_line">{{ task.create_date_time }}</td>
+                <td class="col-sm-1 div_line">{{ task.category }}</td>
+                {% if task.finish_date_time == None %}
+                <td class="col-sm-1 div_line">нет</td>
+                {% else %}
+                <td class="col-sm-1 div_line">{{ task.finish_date_time }}</td>
+                {% endif %}
+                <td><a href="{% url 'edit_task' task.pk %}">Редактировать</a></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-</div>
 {% endblock content %}
 {% block scripts %}
-<script>
-    $(function () {
-        $('input[name="task"]').attr('placeholder', 'Задача');
-        $('input[name="finish_date_time"]').attr({'placeholder': 'Дата оповещения', 'type': 'datetime'});
-        $('input[name="note"]').after($('<textarea name="note" id="id_note" cols=30 rows=3 placeholder="Заметка">'));
-        $('input[name="note"]').remove();
-    });
-    //        $(document).ready(function(){
-    //            $('#pointer_li li').click(function() {
-    //                $('#detail_task').show();
-    var query = 2;
-    var all_task = document.querySelectorAll('.show_task');
-    for (let i = 0; i < all_task.length; i++) {
-        all_task[i].onclick = function () {
-            document.querySelector('.task_show').style.display = 'block';
-            showTask('/' + query, function (data) {
-                document.querySelector('.table_task_show').innerHTML =
-                    '{% for t in tasks %}' +
-                    '   <td class="col-sm-2">{{ t }}</td><td class="col-sm-2">{{ t.category }}</td>' +
-                    '{% endfor %}'
-            });
-        }
-    }
-    function showTask(url, callback) {
-        var f = callback || function (data) {
-            };
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                f(xhttp.responseText);
-            }
-        };
-        xhttp.open('GET', url);
-        xhttp.send();
-    }
-
-
-    var time_hour = [];
-
-    var h_m = {
-        h: 12,
-        m: 45
-    };
-
-    var hm = $('#id_finish_date_time').datepicker({
-
-        dateFormat: "dd.mm.yy " + h_m.h + ':' + h_m.m
-
-    });
-    hm.click(function () {
-        $('.ui-datepicker-calendar').css('float', 'left');
-        $('#ui-datepicker-div').append(
-            $('<div class="container_time" style="float: left;"><div style="float: left">{% for h in hours %}' +
-                '<div class="items" align="center">{{ h }}:</div>{% endfor %}</div>' +
-                '<div style="float: left; padding-left: 2px;">{% for m in minutes %}' +
-                '<div class="items" align="center">{{ m }}</div>{% endfor %}</div>' +
-                '</div>')
-        );
-        $('.items').click(function () {
-            $(this).css('background', '#eb621a');
-            time_hour.push($(this).text());
-            var mm = time_hour;
-            console.log(mm[0] + mm[1]);
-        });
-
-    })
-
-
-    //        let date_hour = [];
-    //        for(let i = 0; i < 24; i++){
-    //            date_hour.push(i);
-    //            }
-    //        console.log(date_hour);
-
-
-</script>
+<script src="/frontend/static/js/index.js"></script>
 {% endblock scripts %}

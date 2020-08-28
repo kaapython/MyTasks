@@ -30,13 +30,12 @@ class Tasks(MPTTModel):
                             blank=True, related_name='children',
                             verbose_name='Родитель', help_text='Родитель')
     slug = models.SlugField('slug', max_length=50)
-    create_date_time = models.DateTimeField('Дата создания',
-                                            default=datetime.datetime.now().strftime(
-                                                '%Y-%m-%d %H:%M:%S'),
+    create_date_time = models.DateTimeField('Дата создания', auto_now_add=True,
                                             blank=True)
     category = models.ForeignKey(Category, verbose_name='Категории',
                                  on_delete=models.CASCADE,
                                  help_text='Категория')
+
     finish_date_time = models.DateTimeField('Дата оповещения', default='',
                                             blank=True, null=True,
                                             help_text='Дата оповещения')

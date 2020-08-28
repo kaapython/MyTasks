@@ -13,7 +13,12 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Tasks)
 class TasksAdmin(admin.ModelAdmin):
     """ Задачи """
-    list_display = ("task", "parent", "id")
+    list_display = (
+        "task",
+        "parent",
+        "slug",
+        "id"
+    )
     list_display_links: Tuple[str] = ('task',)
     list_filter = ('task',)
     prepopulated_fields = {"slug": ("task",)}
