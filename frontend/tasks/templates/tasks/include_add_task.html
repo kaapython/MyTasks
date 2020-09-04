@@ -1,0 +1,30 @@
+<div id="message" style="display: none" align="center"></div>
+<form id="add_task" action="{% url 'index' %}" method='post' style="display: none; padding-top: 10px">
+  {% csrf_token %}
+  <div class="row" align="left">
+    <div class="col-md-12">
+      <table class="table">
+        <thead class="thead-dark">
+        <tr class="cols">
+          <th class="col-sm-2 ">Задача</th>
+          <th class="col-sm-2">Родитель</th>
+          <th class="col-sm-2">Категория</th>
+          <th class="col-sm-2">Дата оповещения</th>
+          <th class="col-sm-2">Заметка</th>
+          <th class="col-sm-2">Создать задачу:</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          {% for f in form %}
+          <td class="col-sm-2">{{ f }}</td>
+          {% endfor %}
+          <td align="right">
+            <button class="btn btn-dark" name="submit">Добавить задачу</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</form>

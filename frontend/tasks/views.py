@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from time import strftime
 
 from mptt.exceptions import InvalidMove
 from mptt.forms import MoveNodeForm
@@ -14,6 +15,7 @@ from backend.services import _get_hours, _get_minutes
 def index(request, pk=1):
     """" Стартовая страница приложения Tasks """
     tasks = Tasks.objects.all().exclude(close_task=True).order_by('id')
+    all_category = Category.objects.all()
     try:
         task = Tasks.objects.get(id=pk)
     except ObjectDoesNotExist:
@@ -22,7 +24,26 @@ def index(request, pk=1):
             form.save()
             return HttpResponseRedirect(reverse('index'))
         return render(request, 'tasks/add_task.html', {'form': form})
-    cat = Tasks.objects.filter(category_id=pk)
+    if request.is_ajax():
+        pk_category = request.GET.get('pk_category')
+        print('query_category: ', pk_category)
+        cat = Tasks.objects.filter(category_id=pk_category).exclude(
+            close_task=True).order_by('id')
+        filter_task = {}
+        items = {}
+        for i in range(len(cat)):
+            items[i] = {
+                'pk': cat[i].pk,
+                'task': cat[i].task,
+                'parent': ['нет' if cat[i].parent is None
+                           else cat[i].parent.task],
+                'create_date_time': cat[i].create_date_time.strftime("%d.%m.%Y"),
+                'note': cat[i].note,
+                'finish_date_time': ['' if cat[i].finish_date_time is None
+                                     else cat[i].finish_date_time]
+            }
+        items = items
+        return JsonResponse(items)
     if request.method != 'POST':
         form = AddTasksForm
     else:
@@ -30,16 +51,17 @@ def index(request, pk=1):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('index'))
-    context = {'form': form, 'tasks': tasks, 'cat': cat, 'task': task,
-               'hours': _get_hours(), 'minutes': _get_minutes()}
+    context = {'form': form, 'tasks': tasks, 'task': task,
+               'hours': _get_hours(), 'minutes': _get_minutes(),
+               'all_category': all_category}
     return render(request, 'tasks/index.html', context)
 
 
 def add_task(request):
+    """ Добавление новой задачи """
     form = AddTasksForm(request.POST)
     if form.is_valid():
         form.save()
-        print(form.save())
         return HttpResponseRedirect(reverse('index'))
     context = {'form': form}
     return render(request, 'tasks/index.html', context)
@@ -66,4 +88,5 @@ def add_category(request):
         category = Category()
         category.name = query_category
         category.save()
-        return JsonResponse({'message': f'Категория {query_category} добавлена'})
+        return JsonResponse(
+            {'message': f'Категория {query_category} добавлена'})

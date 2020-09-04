@@ -1,0 +1,59 @@
+{% load mptt_tags %}
+<div class="row" style="padding-top: 10px">
+  <div class="col-md-5" id="tasks_block" style="padding-top: 5px">
+    <ul id="pointer_li">
+      {% recursetree tasks %}
+      <li>
+        <a href="{{ node.pk }}">{{ node.task }}
+          {% if not node.is_leaf_node %}
+          <ul class="children">
+            {{ children }}
+          </ul>
+          {% endif %}</a>
+      </li>
+      {% endrecursetree %}
+    </ul>
+  </div>
+  <div class="col-md-7 task_show" id="detail_task">
+    <div class="row" align="center">
+      <div class="col-md-12">
+        <table class="table">
+          <thead class="thead-dark">
+          <tr>
+            <th class="col-sm-2">Задача</th>
+            <th class="col-sm-1">Родитель</th>
+            <th class="col-sm-1">Дата создания</th>
+            <th class="col-sm-1">Категория</th>
+            <th class="col-sm-1">Заметка</th>
+            <th class="col-sm-1">Дата оповещения</th>
+            <th class="col-sm-1">Редактировать</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="table_task_show">
+            <td class="col-xs-2 div_line">{{ task }}</td>
+            {% if task.parent == None %}
+            <td class="col-sm-1 div_line">нет</td>
+            {% else %}
+            <td class="col-sm-1 div_line">{{ task.parent }}</td>
+            {% endif %}
+            <td class="col-sm-1 div_line">{{ task.create_date_time }}</td>
+            <td class="col-sm-1 div_line">{{ task.category }}</td>
+            <td class="col-sm-1 div_line">{{ task.note }}</td>
+            {% if task.finish_date_time == None %}
+            <td class="col-sm-1 div_line">нет</td>
+            {% else %}
+            <td class="col-sm-1 div_line">{{ task.finish_date_time }}</td>
+            {% endif %}
+            <td align="right">
+              <a class="badge badge-dark link-center" href="{% url 'edit_task' task.pk %}">
+                Редактировать
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

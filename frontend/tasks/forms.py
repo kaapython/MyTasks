@@ -29,6 +29,7 @@ class EditTaskForm(forms.ModelForm):
     class Meta:
         model = Tasks
         fields = [
+            'importance',
             'task',
             'parent',
             'category',
@@ -37,6 +38,7 @@ class EditTaskForm(forms.ModelForm):
             'close_task'
         ]
         labels = {
+            'importance': '',
             'task': '',
             'parent': '',
             'category': '',

@@ -16,8 +16,13 @@ textarea {
 
 }
 
+a {
+    color: black;
+}
+
 a:hover {
     text-decoration: none;
+    color: #898989;
 }
 
 
@@ -154,4 +159,11 @@ table .ui-datepicker-calendar {
     width: 400px;
     border-radius: 4px;
     padding: 18px 0px 0px 0px;
+}
+
+.link-center {
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

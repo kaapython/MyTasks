@@ -1,6 +1,5 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
-import datetime
 
 
 class Category(models.Model):
@@ -18,8 +17,12 @@ class Category(models.Model):
 
 class Importance(models.Model):
     """ Определение важности задач """
-    importance = models.IntegerField(default=0, null=True, blank=True,
-                                     help_text='Важность задачи')
+    importance = models.CharField(default=0, null=True, blank=True,
+                                  help_text='Важность задачи',
+                                  max_length=10)
+
+    def __str__(self):
+        return self.importance
 
 
 class Tasks(MPTTModel):
@@ -35,7 +38,9 @@ class Tasks(MPTTModel):
     category = models.ForeignKey(Category, verbose_name='Категории',
                                  on_delete=models.CASCADE,
                                  help_text='Категория')
-
+    importance = models.ForeignKey(Importance, verbose_name='Важность',
+                                   on_delete=models.CASCADE,
+                                   help_text='Важность')
     finish_date_time = models.DateTimeField('Дата оповещения', default='',
                                             blank=True, null=True,
                                             help_text='Дата оповещения')
