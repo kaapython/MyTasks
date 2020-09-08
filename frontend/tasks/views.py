@@ -16,6 +16,7 @@ def index(request, pk=1):
     """" Стартовая страница приложения Tasks """
     tasks = Tasks.objects.all().exclude(close_task=True).order_by('id')
     all_category = Category.objects.all()
+    priority = Priority.objects.all()
     try:
         task = Tasks.objects.get(id=pk)
     except ObjectDoesNotExist:
@@ -26,13 +27,15 @@ def index(request, pk=1):
         return render(request, 'tasks/add_task.html', {'form': form})
     if request.is_ajax():
         pk_category = request.GET.get('pk_category')
-        print('query_category: ', pk_category)
-        cat = Tasks.objects.filter(category_id=pk_category).exclude(
+        pk_priority = request.GET.get('pk_priority')
+        print('pk_importance', pk_priority)
+        cat = Tasks.objects.filter(category_id=pk_category,
+                                   priority_id=pk_priority).exclude(
             close_task=True).order_by('id')
-        filter_task = {}
         items = {}
         for i in range(len(cat)):
             items[i] = {
+                'color': cat[i].priority.color,
                 'pk': cat[i].pk,
                 'task': cat[i].task,
                 'parent': ['нет' if cat[i].parent is None
@@ -53,7 +56,7 @@ def index(request, pk=1):
             return HttpResponseRedirect(reverse('index'))
     context = {'form': form, 'tasks': tasks, 'task': task,
                'hours': _get_hours(), 'minutes': _get_minutes(),
-               'all_category': all_category}
+               'all_category': all_category, 'priority': priority}
     return render(request, 'tasks/index.html', context)
 
 

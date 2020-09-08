@@ -63,17 +63,19 @@ function showTask(url, callback) {
 // Фильтр по категориям
 $('#query_category').on('click', function () {
     var category = $('#query_categories').val();
+    var priority = $('#query_importance').val();
     var show_filter_table = document.getElementById('show-filter-table');
     show_filter_table.style.display = (show_filter_table.style.display == 'none') ? '' : 'none';
     $.ajax({
         url: '',
-        data: {pk_category: category}
+        data: {pk_category: category, pk_priority: priority}
     }).done(function (data) {
         $.each(data, function (key, value) {
             $('#task').append(`
               <tr>
+                <td class="col-xs-1"><div style="background-color: ${value.color}; border-radius: 50%; width: 20px; height: 20px">&nbsp;</div></td>
                 <td class="col-xs-2">${value.task}</td>
-                <td class="col-sm-1">${value.parent}</td>
+                <td class="col-sm-2">${value.parent}</td>
                 <td class="col-sm-1">${value.create_date_time}</td>
                 <td class="col-sm-1">${value.note}</td>
                 <td class="col-sm-1">${value.finish_date_time}</td>
@@ -91,4 +93,3 @@ $('#query_category').on('click', function () {
 //            date_hour.push(i);
 //            }
 //        console.log(date_hour);
-

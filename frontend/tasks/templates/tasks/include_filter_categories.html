@@ -1,10 +1,19 @@
 <div style="padding-bottom: 10px; width: 98%">
   <div style="display: flex; justify-content: flex-end">
-    <select class="custom-select custom-select-lg mb-3" id="query_categories" style="width: 15%; height: 34px">
-      {% for c in all_category %}
-      <option value="{{ c.pk }}">{{ c.name }}</option>
-      {% endfor %}
-    </select>
+    <div style="padding-right: 10px; width: 10%; height: 34px;">
+      <select class="custom-select custom-select-lg mb-3" id="query_importance">
+        {% for p in priority %}
+        <option value="{{ p.pk }}">{{ p.priority }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div style="width: 15%; height: 34px">
+      <select class="custom-select custom-select-lg mb-3" id="query_categories">
+        {% for c in all_category %}
+        <option value="{{ c.pk }}">{{ c.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
     <div style="padding-left: 10px">
       <button class="btn btn-dark" id="query_category">ok</button>
     </div>
@@ -18,8 +27,9 @@
         <table class="table">
           <thead class="thead-dark">
           <tr>
+            <th class="col-sm-1"></th>
             <th class="col-sm-2">Задача</th>
-            <th class="col-sm-1">Родитель</th>
+            <th class="col-sm-2">Родитель</th>
             <th class="col-sm-1">Дата создания</th>
             <th class="col-sm-1">Заметка</th>
             <th class="col-sm-1">Дата оповещения</th>

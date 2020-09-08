@@ -20,8 +20,9 @@
         <table class="table">
           <thead class="thead-dark">
           <tr>
+            <th class="col-sm-1"></th>
             <th class="col-sm-2">Задача</th>
-            <th class="col-sm-1">Родитель</th>
+            <th class="col-sm-2">Родитель</th>
             <th class="col-sm-1">Дата создания</th>
             <th class="col-sm-1">Категория</th>
             <th class="col-sm-1">Заметка</th>
@@ -31,11 +32,12 @@
           </thead>
           <tbody>
           <tr class="table_task_show">
+            <td class="col-xs-1 div_line"><div style="background-color: {{ task.priority.color }}; border-radius: 50%; width: 20px; height: 20px">&nbsp;</div></td>
             <td class="col-xs-2 div_line">{{ task }}</td>
             {% if task.parent == None %}
-            <td class="col-sm-1 div_line">нет</td>
+            <td class="col-sm-2 div_line">нет</td>
             {% else %}
-            <td class="col-sm-1 div_line">{{ task.parent }}</td>
+            <td class="col-sm-2 div_line">{{ task.parent }}</td>
             {% endif %}
             <td class="col-sm-1 div_line">{{ task.create_date_time }}</td>
             <td class="col-sm-1 div_line">{{ task.category }}</td>

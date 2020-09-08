@@ -15,14 +15,17 @@ class Category(models.Model):
         ordering = ['id']
 
 
-class Importance(models.Model):
+class Priority(models.Model):
     """ Определение важности задач """
-    importance = models.CharField(default=0, null=True, blank=True,
-                                  help_text='Важность задачи',
-                                  max_length=10)
+
+    priority = models.CharField(default=0, null=True, blank=True,
+                                help_text='Важность задачи',
+                                max_length=10)
+    color = models.CharField(max_length=7, help_text='Цвет', null=True,
+                             blank=True)
 
     def __str__(self):
-        return self.importance
+        return self.priority
 
 
 class Tasks(MPTTModel):
@@ -38,9 +41,9 @@ class Tasks(MPTTModel):
     category = models.ForeignKey(Category, verbose_name='Категории',
                                  on_delete=models.CASCADE,
                                  help_text='Категория')
-    importance = models.ForeignKey(Importance, verbose_name='Важность',
-                                   on_delete=models.CASCADE,
-                                   help_text='Важность')
+    priority = models.ForeignKey(Priority, verbose_name='Важность',
+                                 on_delete=models.CASCADE,
+                                 help_text='Важность')
     finish_date_time = models.DateTimeField('Дата оповещения', default='',
                                             blank=True, null=True,
                                             help_text='Дата оповещения')

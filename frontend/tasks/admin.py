@@ -5,7 +5,7 @@ from .models import *
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    """Категории"""
+    """ Категории """
     list_display = ("name", "id")
     list_display_links: Tuple[str] = ('name',)
 
@@ -14,6 +14,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class TasksAdmin(admin.ModelAdmin):
     """ Задачи """
     list_display = (
+        "priority",
         "task",
         "parent",
         "slug",
@@ -24,8 +25,8 @@ class TasksAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("task",)}
 
 
-@admin.register(Importance)
-class ImportanceAdmin(admin.ModelAdmin):
-    """Важность задачи"""
-    list_display = ("importance", "id")
-    list_display_links: Tuple[str] = ('importance',)
+@admin.register(Priority)
+class PriorityAdmin(admin.ModelAdmin):
+    """ Важность задачи """
+    list_display = ("priority", "color", "id")
+    list_display_links: Tuple[str] = ('priority',)
