@@ -73,7 +73,7 @@ $('#query_category').on('click', function () {
         $.each(data, function (key, value) {
             $('#task').append(`
               <tr>
-                <td class="col-xs-1"><div style="background-color: ${value.color}; border-radius: 50%; width: 20px; height: 20px">&nbsp;</div></td>
+                <td class="col-xs-1"><div style="background-color: ${value.color}; border-radius: 50%; width: 20px; he">&nbsp;</div></td>
                 <td class="col-xs-2">${value.task}</td>
                 <td class="col-sm-2">${value.parent}</td>
                 <td class="col-sm-1">${value.create_date_time}</td>

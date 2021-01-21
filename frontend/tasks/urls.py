@@ -9,4 +9,6 @@ urlpatterns = [
     path('<int:pk>', views.index, name='index'),
     path('add_category', views.add_category, name='add_category'),
     path('edit_task/<int:pk>', views.edit_task, name='edit_task'),
+    path('closed_tasks', views.show_closed_tasks, name='closed_tasks'),
 ]
+

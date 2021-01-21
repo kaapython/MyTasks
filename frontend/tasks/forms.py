@@ -8,6 +8,7 @@ class AddTasksForm(forms.ModelForm):
     class Meta:
         model = Tasks
         fields = [
+            'priority',
             'task',
             'parent',
             'category',
@@ -15,6 +16,7 @@ class AddTasksForm(forms.ModelForm):
             'note'
         ]
         labels = {
+            'priority': '',
             'task': '',
             'parent': '',
             'category': '',

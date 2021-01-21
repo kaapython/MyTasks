@@ -41,15 +41,18 @@ a:hover {
 
 
 select {
-    width: 300px;
+    width: auto;
     border-radius: 5px;
     height: 30px;
 }
 
 input {
-    width: 300px;
     border-radius: 5px;
     height: 30px;
+}
+
+input_width {
+     width: 300px;
 }
 
 #pointer_li li {

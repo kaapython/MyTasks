@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+from pathlib import Path
 from backend.config import KEY, DEBUG, HOSTS
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -122,9 +123,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-
+_BASE_DIR = Path(__file__).resolve().parent.parent.parent
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend/static'),
+    os.path.join(_BASE_DIR, 'frontend/static'),
 ]
 
 STATIC_URL = '/frontend/static/'

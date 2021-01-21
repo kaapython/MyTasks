@@ -93,3 +93,10 @@ def add_category(request):
         category.save()
         return JsonResponse(
             {'message': f'Категория {query_category} добавлена'})
+
+
+def show_closed_tasks(request):
+    """ Отображение закрытих задач """
+    closed_tasks = Tasks.objects.filter(close_task=True)
+    return render(request, 'tasks/closed_tasks.html',
+                  {'closed_tasks': closed_tasks})

@@ -2,6 +2,7 @@
   <div style="display: flex; justify-content: flex-end">
     <div style="padding-right: 10px; width: 10%; height: 34px;">
       <select class="custom-select custom-select-lg mb-3" id="query_importance">
+        <option value="0">- - - - - - - -</option>
         {% for p in priority %}
         <option value="{{ p.pk }}">{{ p.priority }}</option>
         {% endfor %}
